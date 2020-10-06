@@ -1,1 +1,0 @@
-<div id="bigImage" class="container"></div>

@@ -5,15 +5,14 @@ export class DBMySQL {
         this.dbTables =  dbTables;  
         this.otherParams = otherParams;
         for(let param of Object.values(otherParams)) {
-            this.methodName = param.methodName;
             this.pathJSON = param.pathJSON;
             this.noCache = param.methodName;
         }
-                           
-
    }
     
     read(container, id=0, whereDb='') {
+        
+        for(let item of Object.values(container)) this.methodName = item.methodName;
         this.createJSON(    id,   
                             whereDb,      
                             this.dbTables, 
@@ -47,12 +46,16 @@ export class DBMySQL {
             success:function(data)  {
                 (async () => {  
                     let jsonPlusID = '';
-                    if(id>0)  {jsonPlusID = '_' + id;}
-                    let fileNameJSON =  '../'+pathJSON + dbTables + jsonPlusID + '.json';
+                    if(id>0 && whereDb.length==0)  {jsonPlusID = '_' + id;}
+                    if(whereDb.length>0) {
+                        let asc = getSumAscii(whereDb);
+                        jsonPlusID = '_ASC_' + asc;
+                    }
+                    let fileNameJSON =  '../'+pathJSON + dbTables + jsonPlusID + '.json';   
                     let methods = {};
                     let methodsFetch = {};
                     if(this.noCache) { methodsFetch = {cache: "no-cache"};}
-                    let response = await fetch(fileNameJSON); 
+                    let response = await fetch(fileNameJSON, methodsFetch); 
 
                     let jsonData = await response.json();
                     if(jsonData.length>0) {

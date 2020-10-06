@@ -24,9 +24,16 @@ $aData = $db->get("", $aTables, null, $where, true, __FILE__, __LINE__, false);
 
 //$jsonFileName = "json/".$_SERVER['REMOTE_ADDR'].".json";
 $jsonPlusID = "";
-if($_POST["dbID"]>0) {$jsonPlusID = "_".$_POST["dbID"];}
-$jsonFileName = $_POST["pathJSON"].$_POST["dbTables"].$jsonPlusID.".json";
+if($_POST["dbID"]>0 && strLen(Trim($_POST["dbWhere"]))==0 ) {$jsonPlusID = "_".$_POST["dbID"];}
+if(strLen(Trim($jsonPlusID))==0 && strLen(Trim($_POST["dbWhere"]))>0) {
+    $asc = 0;
+    for($i=0;$i<strLen(Trim($where));++$i) {
+        $asc += ord(substr($where, $i, 1));
+    }
+    $jsonPlusID = "_ASC_".$asc;
+}
 
+$jsonFileName = $_POST["pathJSON"].$_POST["dbTables"].$jsonPlusID.".json";
 if(!is_file($jsonFileName)) {
 
     $cdir = scandir("json");

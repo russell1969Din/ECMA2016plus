@@ -1,4 +1,3 @@
-import {System} from "./system.js";
 
 export class DomLevels {
     //======    Konštruktor nevytvára žiadne lokálne premenné
@@ -19,24 +18,64 @@ export class DomLevels {
         return cnt;
     }
     
-    linkTemplate(hrefLink='', WEBPath='') {
-        //======    Do kontajnera pre predchádzajuce URL adresy sa načíta aktuálne adresa   
-        $('#lastURL').html($('#currentURL').html());
-        //======    Ak niektorý z parametrov nie je riadne definovaný, metóda sa predčasne ukončí    
-        if(hrefLink.trim().length==0 || WEBPath.trim().length==0) return null;
+    loadTemplate(fileToLoad='', workSpace='') {
+        if(fileToLoad.trim().length==0 || workSpace.trim().length==0) return null;
+        $.ajax({
+            url:'../srcTemp/' + fileToLoad + '/' + fileToLoad + '.tmp.php',
+            method:'POST',
+            data:{
+                param:       0
+            },
+            success:function(data)  {
+                $('#'+workSpace).html(data);
+            }                                                       
+        });
+    }
+    
+    newHistoryPushState(newHref='', top=true) {
+        //======    Ak niektorý z parametrov nie je riadne definovaný, metóda sa predčasne ukončí
+        if(newHref.trim().length==0) return null;
         //======    Appka nastaví nové URL
         var stateObj = {foo:'bar'};
-        history.pushState(stateObj, "page 2", "/" + hrefLink);
-        //======    Nastaví zobrazenie šablón na úplný vrch hore
-        $(window).scrollTop(0); $('body').scrollTop(0);
+        history.pushState(stateObj, "page 2", "/" + newHref);
+        //======    Nastaví zobrazenie šablón na úplný vrch hore ak parameter top sa rovná true
+        if(top) $(window).scrollTop(0); $('body').scrollTop(0);
+    
+    }
+    
+    linkTemplate(hrefLink='', WEBPath='') {
+        //======    Ak niektorý z parametrov nie je riadne definovaný, metóda sa predčasne ukončí
+        if(hrefLink.trim().length==0 || WEBPath.trim().length==0) return null;
+        
+        //======    Do kontajnera pre predchádzajuce URL adresy sa načíta aktuálne adresa   
+        $('#lastURL').html($('#currentURL').html());
+            
+        //======    Fyzicky nastaví cestu ku šablóne, do ktorej bude ďalej nasmerovaný
+        this.newHistoryPushState(hrefLink);
+        
         //======    Do kontajnera pre aktuálne URL adresy sa načíta adresa vyskladaná z parametrov metódy
         $('#currentURL').html(WEBPath + '/' + hrefLink);
-        //======    Zavolá konštruktor triedy System
-        let system = new System();      
         //======    Resetne posledne načítanú šablónu z generálneho kontajnera 
         $('#workSpace_general').html('');  
-        //======    Do geerálneho kontajnera načíta šablónu prevzatú z parametra #currentURL / funkciou getFragmentPath(1) 
-        system.loadTemplate(getFragmentPath(1), 'workSpace_general');
+        //======    Do gerálneho kontajnera načíta šablónu prevzatú z parametra #currentURL / funkciou getFragmentPath(1) 
+        this.loadTemplate(getFragmentPath(1), 'workSpace_general');
+    }
+    
+    returnFrom(toTemplate='', toObjTemplate={}) {
+        if(toTemplate.trim().length==0) return null;
+        
+        //======    Načíta šablónu do ktorej sa následne vráti
+        this.loadTemplate(toTemplate, 'workSpace_general');
+
+        //======    Do kontajnera pre predchádzajuce URL adresy sa načíta aktuálne adresa   
+        $('#lastURL').html($('#currentURL').html());
+        $('#currentURL').html($('#webURL').html() + '/' + toTemplate);
+        
+        //======    Fyzicky nastaví cestu ku šablón, do ktorej sa vráti
+        this.newHistoryPushState(toTemplate);
+        
+        //======    Do objektu šablóny do ktorej sa vracia, prevzatého z parametra spustí metódu pre načítanie controller
+        toObjTemplate.controller();
     }
 }
 

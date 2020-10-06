@@ -1,11 +1,16 @@
 //======    Importujeme triedu DomLevels s metódami pre prácu s HTML DOM levels  
 import {DomLevels} from "../srcRoot/domLevels.js";
 
+//to do
+import {Home} from "../srcTemp/home/home.src.js";
+
 document.getElementsByTagName("head")[0].insertAdjacentHTML(
     'beforeend',
     '<link id="original"  rel="stylesheet" href="../css/bigImage.css" />');
     //  CSS current template  
     //  .parent-image
+    //  .child-image
+    
 //======    Deklarácia objektu triedy bigImage 
 export class BigImage {                       
     constructor(data, container, otherParams) { 
@@ -36,12 +41,26 @@ export class BigImage {
         //======    Vytváram kontajner pre zobrazenie potvrdeného obrázka do rodičovského kontajnera
         let cnt = domLevels.createElement(  this.containerParent,
                                             this.containerType,
-                                            this.containerID, 
+                                            this.containerId, 
                                             this.tester);
-        $('#' + this.containerID).addClass('parent-image');
-        
+        $('#' + this.containerId).addClass('parent-image');
+        let imgSrc =  '';
+        let id = 0;
         for(let data of this.data) {
-            let imgSrc =  this.pathImage + data.images['image0'+data.gen_firstImage].padStart(2,'0');
+            imgSrc =  this.pathImage + data.images['image0'+data.gen_firstImage].padStart(2,'0');
+            id = data.gen_id;
         }
+        let imgId = this.containerId + '_image';
+        let title = 'title="imgID: '+ imgId + ' :: ID: ' + this.containerId + ' :: SRC: ' + imgSrc + ' :: parentID: ' + this.containerParent + '"';
+        $('#'+this.containerId).append('<img src="' + imgSrc + '" ' + title + ' id="' + imgId + '" class="child-image" />');
+
+        //to do
+        $('#'+this.containerId).append('<input id="startReturn" type="button" value="X" >');
+        $('#startReturn').unbind();
+        $('#startReturn').click(function() {
+            
+            let home = new Home();
+            domLevels.returnFrom('home', home);
+        });
     }
 }

@@ -102,6 +102,14 @@ const capitalize = (s) => {
     return s.charAt(0).toUpperCase() + s.slice(1)
 }
 
+function getSumAscii(string) {
+    let count = 0;
+    for(let i=0;i<string.length;i++) {
+        count += string.charCodeAt(i);
+    }
+    return count;
+}
+
 
 </script>
 

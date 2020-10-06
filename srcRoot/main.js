@@ -1,14 +1,14 @@
 import {DBMySQL} from "./mySQL.js";
-import {System} from "./system.js";
-import {Home} from "../srcTemp/home.js";
-import {Detail} from "../srcTemp/detail.js";
+import {DomLevels} from "./domLevels.js";
+import {Home} from "../srcTemp/home/home.src.js";
+import {Detail} from "../srcTemp/detail/detail.src.js";
 
 $.getJSON("https://api.ipify.org?format=json", function(data) { 
     $("#json").html("/json/" + data.ip + ".json");
 });
 
-let system = new System();
-system.loadTemplate(getFragmentPath(1), 'workSpace_general');
+let domLevels = new DomLevels();
+domLevels.loadTemplate(getFragmentPath(1), 'workSpace_general');
 
 switch(getFragmentPath(1)) {
     case 'home':    {

@@ -1,7 +1,7 @@
 //======    Importujeme triedu DomLevels s metódami pre prácu s HTML DOM levels  
 import {DomLevels} from "../srcRoot/domLevels.js";
 //======    Odkaz z každej položky zobrazenia kontajnera pomocou tohto objektu sa bude odvolávať na odkaz Detail 
-import {Detail} from "../srcTemp/detail.js";
+import {Detail} from "../srcTemp/detail/detail.src.js";
 
 
 //https://stackoverflow.com/questions/46071410/how-to-load-css-file-in-ecmascript-6 (render react)
@@ -41,13 +41,14 @@ export class ListItems {
             this.pathImage =  value.pathImage;
             //======    this.tempate deklarácia šablóny pre vytvorenie href
             this.callTemplate =  value.callTemplate;
+            //======    this.fadeIn Ak je viac ako 0 - parameter pre animáciu jednotlivých detských kontajnerov
+            this.fadeIn = value.fadeIn;
+
         }
         //======    Slučka pre načítanie hodnôt z objektu typu otherParams - ostatné parametre
         for(let param of Object.values(otherParams) ) {
             //======    názov aktuálnej metódy aktuálne sa v  tejto inštancií nepoužíva
             this.methodName = param.methodName;
-            //======    this.fadeIn Ak je viac ako 0 - parameter pre animáciu jednotlivých detských kontajnerov
-            this.fadeIn = param.fadeIn;
             //======    this.tester pri testovaní je možné nastaviť aby sa zobrazovali identifikačné údaje k elementom
             this.tester = param.tester;
         }
@@ -118,7 +119,7 @@ export class ListItems {
             //          imgId = unikátne ID obrázku ak bude vložený 
             //          imgSrc = Zdroj obrázku ak bude vložený - názov súboru s cestou
             let childId = this.containerID + "_" + index;   
-            let imgId = 'image_' + index;
+            let imgId = this.containerID +'_img_' + index;
             let imgSrc =  this.pathImage + data.images['image0'+data.gen_firstImage].padStart(2,'0');
 
             //======    Vytvára sa ďalší detský kontajner v rámci slučky - počet podľa počtu záznamov v objekte this.data
@@ -133,7 +134,7 @@ export class ListItems {
            if(imgSrc != this.pathImage) {
                 let title = '';
                 let hrefLink = this.callTemplate + '/' + data.gen_unique;   // + '/' + 
-                if(this.tester) {title = 'title="href: ' + hrefLink + ' :: ' + this.containerID + ' :: ' + imgSrc + ' :: ' + lineRow + ' / ' + inLineRow + '"';}
+                if(this.tester) {title = 'title="imgID: ' + imgId + ' :: dbID:' + data.gen_id + ' :: href: ' + hrefLink + ' :: ' + this.containerID + ' :: ' + imgSrc + ' :: ' + lineRow + ' / ' + inLineRow + '"';}
                 //Vloženie aktuálneho obrázku k aktuálnej položke
                 $('#'+childId).append('<img src="' + imgSrc + '" ' + title + ' id="' + imgId + '" class="child-image" />');
                 //======        
