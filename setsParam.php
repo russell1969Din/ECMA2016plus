@@ -14,6 +14,8 @@
         $maxContent	    = 1000000000;
         $alterBaseURL   = "http://prop.r2r.sk";
         $videoFolder    = "media";
+
+        
         $annexesVideo   = "AVI|OGG|MP4|MPEG|MPG|WMV|MOV";
         $annexesImage   = "JPG|JPEG|PNG|GIF";
         $uploadMax      = 32000000; 
