@@ -44,7 +44,13 @@
 ?>    
 </head>
 
+<style>
+    .xtest {
+        background-color:green;
+    }
+</style>
 <body>
+
     <span id="lastURL" style="display:none;"></span>
     <span id="currentURL" style="display:none;"></span>
     <span id="webURL" style="display:none;"></span>

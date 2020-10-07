@@ -1,5 +1,5 @@
 import {DBMySQL} from "../../srcRoot/mySQL.js";
-import {FillContainers} from "../../srcContents/fillContainers.js";
+import {FillContainers} from "../../srcLibrary/fillContainers.js";
 
 export class Detail {
     constructor() {}

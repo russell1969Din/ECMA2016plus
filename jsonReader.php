@@ -10,8 +10,20 @@ if(is_file($_SESSION["PROJECT_INFO"])) {include($_SESSION["PROJECT_INFO"]);}
 
 $aTables = explode("~", $_POST["dbTables"]);
     
-$db  = _constructClass("db");     
-$aStruct = $db->structureFromTable($aTables[0], __FILE__, __LINE__, true);
+$db  = _constructClass("db");   
+  
+$aStruct = [];
+foreach($aTables as $table) {
+    $aStruct[] = $db->structureFromTable($table, __FILE__, __LINE__, true);
+}  
+
+$aFields  = [];
+foreach($aStruct as $stru) {
+    foreach($stru as $field) $aFields[] = $field;
+}
+
+$aStruct = $aFields;
+
 
 $where = "";
 if(strLen(Trim($_POST["dbWhere"]))== 0) {
@@ -19,6 +31,10 @@ if(strLen(Trim($_POST["dbWhere"]))== 0) {
 } else {
     $where = $_POST["dbWhere"];        
 }
+
+if(strLen(Trim($where))==0) $where = '1';
+if(strLen(Trim($_POST["dbJoin"]))>0) $where =  $where.' && '.$_POST["dbJoin"];
+
 $aData = $db->get("", $aTables, null, $where, true, __FILE__, __LINE__, false);
 
 

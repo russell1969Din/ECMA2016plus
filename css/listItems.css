@@ -2,26 +2,38 @@
     display: inline-block !important;
 }
 
-
-.parent-title {
-    
-    background-color:#5f2084;
-    color:#fff;
-    font-family; verdana;
-    font-size:14px;
-    line-height:40px;
-    border-radius:8px;
-    padding-left:20px;
-}
-
 .parent-win {
+    /*
     margin-top:50px;
-    border: dotted 1px #000;
+    border-radius:8px;
+    padding:0px;
+    background-color:silver;
+    */
 }            
 
+.parent-title {
+    background-color:#5f2084;
+    border-radius:8px;
+    color:#fff;
+    font-family; verdana;
+    font-size:18px;
+    height:30px;
+    margin-top:20px;
+}
+
+.row-win {
+    background-color: #fff;
+    margin-top:6px;
+}
+
+
 .child-win {
-    border: dotted 1px #000;
+    border: dotted 1px #5e1f84;
     display:none;
+    border-radius:7px;
+    padding-top:10px;
+    padding-left:10px;
+    padding-right:10px;
 }
 
 .child-image {
@@ -31,6 +43,9 @@
     cursor:pointer;
 }
 
-.test {
-    background-color:red;
+.iconTitle {
+    color:#fff;
+    margin-top:8px;
+    font-size:10px;
 }
+

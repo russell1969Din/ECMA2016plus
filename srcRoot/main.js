@@ -3,6 +3,7 @@ import {DomLevels} from "./domLevels.js";
 import {Home} from "../srcTemp/home/home.src.js";
 import {Detail} from "../srcTemp/detail/detail.src.js";
 
+
 $.getJSON("https://api.ipify.org?format=json", function(data) { 
     $("#json").html("/json/" + data.ip + ".json");
 });
@@ -22,9 +23,4 @@ switch(getFragmentPath(1)) {
         break;
     }
 }
-
-
-
-
-     
        

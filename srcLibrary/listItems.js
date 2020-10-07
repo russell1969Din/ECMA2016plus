@@ -1,5 +1,12 @@
 //======    Importujeme triedu DomLevels s metódami pre prácu s HTML DOM levels  
 import {DomLevels} from "../srcRoot/domLevels.js";
+
+//======    Importujeme triedu System napríklad pre spracovanie dát viewFields z objektu container
+import {System} from "../srcRoot/system.js";
+
+//======    Odkaz z každej položky zobrazenia kontajnera pomocou tohto objektu sa bude odvolávať na odkaz Detail 
+import {Home} from "../srcTemp/home/home.src.js";
+
 //======    Odkaz z každej položky zobrazenia kontajnera pomocou tohto objektu sa bude odvolávať na odkaz Detail 
 import {Detail} from "../srcTemp/detail/detail.src.js";
 
@@ -43,6 +50,8 @@ export class ListItems {
             this.callTemplate =  value.callTemplate;
             //======    this.fadeIn Ak je viac ako 0 - parameter pre animáciu jednotlivých detských kontajnerov
             this.fadeIn = value.fadeIn;
+            //======    this.viewFields Zoznam polí tabuľky databázy, s ktorými bude objekt pracovať
+            this.viewFields = value.viewFields
 
         }
         //======    Slučka pre načítanie hodnôt z objektu typu otherParams - ostatné parametre
@@ -58,6 +67,8 @@ export class ListItems {
 
         //======    Vytváram konštruktor triedy DomLevels pre prácu s metódami HTML DOM-levels (createElement)
         let domLevels = new DomLevels();
+        let system = new System();
+        let home = new Home();
 
         //======    Vytváram kontajner pre zobrazenie zoznamu nehnuteľností do rodičovského kontajnera
         
@@ -65,17 +76,21 @@ export class ListItems {
                                             this.containerType,
                                             this.containerID, 
                                             this.tester);
-        
+        $('#'+this.containerID).addClass('parent-win container '); // 
+        //d-flex justify-content-center
         //======    Pridávam kontajner a naplním ho titulkou ku aktuálne zobrazenému  zoznamu
-        $('#'+this.containerID).addClass('parent-win');
+
+        //$('#'+this.containerID).append('<div class="border parent-title" id="'+this.containerID + '_title" ></div>')
+        
         let ttl = domLevels.createElement(  this.containerID,
                                             this.containerType,
                                             this.containerID + '_title',
                                             this.tester);
-        $('#'+this.containerID + '_title').addClass('parent-title');
+        $('#'+this.containerID + '_title').addClass('border parent-title row ');
+        
         let titleHTML = '';
-        titleHTML += '<i class="far fa-star"></i>&nbsp;&nbsp;&nbsp;';
-        titleHTML += this.title;
+        titleHTML += '&nbsp;&nbsp;<i class="iconTitle far fa-star"></i>&nbsp;&nbsp;&nbsp;';
+        titleHTML += this.title;                                     
         $('#'+this.containerID + '_title').html(titleHTML);
         
         //======    Inicialujem index ktorý sa bude inkrementovať pre každé vkladané okno nehnuteľnosti
@@ -103,13 +118,8 @@ export class ListItems {
         //======    Pridanie interného kontajnera (row) pre zobrazenie počtu položiek v jednom riadku
         //          Počet položiek v radku sa nastavuje vo vlastnostiach objektu container (columns) v parametry konštruktora
         //          Vlastnosť columns by nemala obsahovať vyššiu hotnotu ako štyri 
-        row = domLevels.createElement(  this.containerID,
-                                        'div',
-                                        this.containerID + 'Row_'+lineRow,
-                                        this.tester);
-        //======    Do vytvoreného kontajtera riadku vložím príslušnú triedu Bootstrap
-        $('#' + this.containerID + 'Row_'+lineRow).addClass('row');
-        
+        $('#'+this.containerID).append('<div class="row row-win" id="' + this.containerID + 'Row_'+lineRow + '"></div>')
+
         //======    Slučka na vkladanie detských objektov - this.data je výsledok ktorý vrátil controller
         //======    Výsledok je načítaný z databázy cez dátový objekt formátu JSON
         
@@ -131,23 +141,35 @@ export class ListItems {
             $('#'+childId).addClass('child-win col-sm-' + col_sm + ' '); 
 
             //======    Ak parater zdrojového súboru obrázku obsahuje názov súboru pridá element typu IMG s obrázkom
+           let hrefLink = this.callTemplate + '/' + data.gen_unique;
+
            if(imgSrc != this.pathImage) {
                 let title = '';
-                let hrefLink = this.callTemplate + '/' + data.gen_unique;   // + '/' + 
-                if(this.tester) {title = 'title="imgID: ' + imgId + ' :: dbID:' + data.gen_id + ' :: href: ' + hrefLink + ' :: ' + this.containerID + ' :: ' + imgSrc + ' :: ' + lineRow + ' / ' + inLineRow + '"';}
+                
+                if(this.tester) {title = 'title="IDdb: ' + data.gen_id + ' :: imgID: ' + imgId + ' :: dbID:' + data.gen_id + ' :: href: ' + hrefLink + ' :: ' + this.containerID + ' :: ' + imgSrc + ' :: ' + lineRow + ' / ' + inLineRow + '"';}
                 //Vloženie aktuálneho obrázku k aktuálnej položke
                 $('#'+childId).append('<img src="' + imgSrc + '" ' + title + ' id="' + imgId + '" class="child-image" />');
-                //======        
+                //======            
                 $('#'+imgId).unbind(); 
                 $('#'+imgId).click(function() {
                     domLevels.linkTemplate(hrefLink, $('#webURL').html());
                     let detail = new Detail();
                     detail.controller();
                 });
-                
-                //$('#'+imgId).addClass('child-image');
             }
-                     
+
+            //xxxxxxxxxxxxxx
+            home.dataEstate(   data,
+                                this.viewFields,     
+                                childId, 
+                                this.containerType, 
+                                this.containerID + '_icon_' + index, 
+                                this.tester,
+                                this.callTemplate);
+            
+            //=======   Vytvorím pole fromDB podľa parametra this.viewFields (container) s dátami prenesenými zo slučky (data)
+            //let fromDB = system.getArrayFromData(this.viewFields, data);
+            
             //=======   Po každom vložení detského kontajnera inkrementujem jedinečný index, 
             //          a interný index inLineRow platný v konkrétnom riadku
             ++index; ++inLineRow;
@@ -168,12 +190,16 @@ export class ListItems {
                 ++lineRow;
 
                 //======    Pridá interný kontajner (row) pre zobrazenie počtu ďalších položiek v jednom riadku
+                $('#'+this.containerID).append('<div class="row row-win" id="' + this.containerID + 'Row_'+lineRow + '"></div>')
+                
+                /*
                 row = domLevels.createElement(  this.containerID,
                                                 'div',
                                                 this.containerID + 'Row_'+lineRow, 
                                                 this.tester);
+                */
                 //======    Do vytvoreného kontajtera riadku vložím príslušnú triedu Bootstrap
-                $('#'+this.containerID + 'Row_'+lineRow).addClass('row');
+                $('#'+this.containerID + 'Row_'+lineRow).addClass('row  row-win ');
             }
         }
         

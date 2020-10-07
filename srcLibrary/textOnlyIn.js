@@ -27,20 +27,9 @@ export class InsertTextOnly {
         for(let other of Object.values(this.otherParams) ) {
                 this.tester = other.tester;
         }
-        console.log(this.tester);
-    
-        console.log(this.data.length);
-        console.log(this.usingFields.fieldName);
         for(let data of Object.values(this.data) ) {                        
             eval('this.content = data.' + this.usingFields.fieldName +  ';');
         }        
-        console.log('InsertTextOnly // execRender() :: ' + typeof this.usingFields);
-        console.log(this.usingFields.title + ' :: ' + this.usingFields.fieldName);
-        console.log(this.content);
-        console.log(this.usingFields.title);
-        //console.log(this.data.keys()[this.usingFields.fieldName]);
-        
-        console.log(this.containerID + ' :: ' + this.containerParentID);
         
         let cnt = domLevels.createElement(  this.containerParentID,
                                             this.containerType,
