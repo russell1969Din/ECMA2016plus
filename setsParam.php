@@ -1,8 +1,8 @@
 <?php
-        $dbLocal        = "46.229.230.130";
-        $dbLogin        = "uk028700";
-        $dbName         = "uk028700db";
-        $dbPass         = "_mD_g!U6g";
+        $dbLocal        = "";
+        $dbLogin        = "";
+        $dbName         = "";
+        $dbPass         = "";
         $dbPort         = "";
         $mailFrom       = "no-reply@propertynetwork.sk";
         $adminID        = 2;
