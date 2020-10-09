@@ -6,8 +6,7 @@ export class Detail {
 
     controller() {
         let otherParams = [{'pathJSON': 'json/', 'tester':true, 'noCache':true}];    
-        let dbMySQL = new DBMySQL(  'general~category~types', 
-                                    otherParams );  
+        let dbMySQL = new DBMySQL( 'general', otherParams );  
          
         let container = {};  
         container = [{  'methodName':'bigImage', 
@@ -19,7 +18,7 @@ export class Detail {
                         'callTemplate':''}];
         dbMySQL.read(container, 0, 'gen_unique="' + getFragmentPath(2) + '"');
         
-        container = [{  'methodName':'textOnlyIn', 
+        container = [{  'methodName':'insertTextOnly', 
                         'type':'div', 
                         'id':'text_1',
                         'fadeIn':0,  
@@ -28,7 +27,7 @@ export class Detail {
                         }];        
        dbMySQL.read(container, 0, 'gen_unique="' + getFragmentPath(2) + '"');
 
-        container = [{  'methodName':'textOnlyIn', 
+        container = [{  'methodName':'insertTextOnly', 
                         'type':'div', 
                         'id':'text_2',
                         'fadeIn':0,  

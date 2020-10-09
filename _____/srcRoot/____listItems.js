@@ -1,17 +1,7 @@
 //======    Importujeme triedu DomLevels s metódami pre prácu s HTML DOM levels  
 import {DomLevels} from "../srcRoot/domLevels.js";
+import {Detail} from "../srcFill/detail.js";
 
-//======    Importujeme triedu System napríklad pre spracovanie dát viewFields z objektu container
-import {System} from "../srcRoot/system.js";
-
-//======    Odkaz z každej položky zobrazenia kontajnera pomocou tohto objektu sa bude odvolávať na odkaz Detail 
-//import {Home} from "../srcTemp/home/home.src.js";
-
-//======    Odkaz z každej položky zobrazenia kontajnera pomocou tohto objektu sa bude odvolávať na odkaz Detail 
-import {Detail} from "../srcTemp/detail/detail.src.js";
-  
-//======    
-import {ListItemsAdd} from "./listItemsAdd/listItems.add.js";  
 
 //https://stackoverflow.com/questions/46071410/how-to-load-css-file-in-ecmascript-6 (render react)
 
@@ -19,13 +9,15 @@ import {ListItemsAdd} from "./listItemsAdd/listItems.add.js";
 document.getElementsByTagName("head")[0].insertAdjacentHTML(
     'beforeend',
     '<link id="original"  rel="stylesheet" href="../css/listItems.css" />');
-    //  CSS current template
-    //  .parent-title
-    //  .parent-win 
-    //  .child-win
-    //  .child-image
+    /* CSS current template
+        .parent-title
+        .parent-win 
+        .child-win
+        .child-image
+    */
 
-//======    Deklarácia objektu triedy ListItems pre zobrazenie položiek ktoré Controller načítal cez JSON z databázy
+
+//======    Deklarácia objektu triedy ListItems pre zobrazenie položiek ktoré Controller ašítal cez JSON z databázy
 export class ListItems {
 
     //======    Konštruktor vytvára lokálne premenné použiteľné v rámci aktuálnej triedy
@@ -35,7 +27,7 @@ export class ListItems {
         //======    Slučka pre načítanie hodnôt z objektu typu container
         for(let value of Object.values(container) ) {
             //======    this.columns je nastavený počet položiek ako sa majú v riadku zobrazovať
-            this.columns = value.columns;
+            this.columns = value.columns,
             //======    this.iconTitle deklarácia ikonky v rámci Fontsameone ktorá sa má zobraziť pred value.title
             this.titleIcon = value.iconTitle;
             //======    this.columns je text v titulke ktorý sa má zobraziť v kontajnery s CSS tiedou parent-title
@@ -49,28 +41,23 @@ export class ListItems {
             //======    this.pathImage konštantná cesta ku zobrazovaným obrázkov
             this.pathImage =  value.pathImage;
             //======    this.tempate deklarácia šablóny pre vytvorenie href
-            this.callTemplate =  value.callTemplate;
-            //======    this.fadeIn Ak je viac ako 0 - parameter pre animáciu jednotlivých detských kontajnerov
-            this.fadeIn = value.fadeIn;
-            //======    this.viewFields Zoznam polí tabuľky databázy, s ktorými bude objekt pracovať
-            this.viewFields = value.viewFields
-
+            this.template =  value.template;
         }
         //======    Slučka pre načítanie hodnôt z objektu typu otherParams - ostatné parametre
         for(let param of Object.values(otherParams) ) {
-            //======    názov aktuálnej metódy aktuálne sa v  tejto inštancií nepoužíva
+            //======    názov aktu=alnej metódy aktuálne sa v  tejto inštancií nepoužíva
             this.methodName = param.methodName;
+            //======    this.fadeIn Ak je viac ako 0 - parameter pre animáciu jednotlivých detských kontajnerov
+            this.fadeIn = param.fadeIn;
             //======    this.tester pri testovaní je možné nastaviť aby sa zobrazovali identifikačné údaje k elementom
             this.tester = param.tester;
         }
     }
     
-    execRender() {
+    fillContainer() {
 
         //======    Vytváram konštruktor triedy DomLevels pre prácu s metódami HTML DOM-levels (createElement)
         let domLevels = new DomLevels();
-        let system = new System();
-        let listItemsAdd = new ListItemsAdd();
 
         //======    Vytváram kontajner pre zobrazenie zoznamu nehnuteľností do rodičovského kontajnera
         
@@ -78,21 +65,17 @@ export class ListItems {
                                             this.containerType,
                                             this.containerID, 
                                             this.tester);
-        $('#'+this.containerID).addClass('parent-win container '); // 
-        //d-flex justify-content-center
-        //======    Pridávam kontajner a naplním ho titulkou ku aktuálne zobrazenému  zoznamu
-
-        //$('#'+this.containerID).append('<div class="border parent-title" id="'+this.containerID + '_title" ></div>')
         
+        //======    Pridávam kontajner a naplním ho titulkou ku aktuálne zobrazenému  zoznamu
+        $('#'+this.containerID).addClass('parent-win');
         let ttl = domLevels.createElement(  this.containerID,
                                             this.containerType,
                                             this.containerID + '_title',
                                             this.tester);
-        $('#'+this.containerID + '_title').addClass('border parent-title row ');
-        
+        $('#'+this.containerID + '_title').addClass('parent-title');
         let titleHTML = '';
-        titleHTML += '&nbsp;&nbsp;<i class="iconTitle far fa-star"></i>&nbsp;&nbsp;&nbsp;';
-        titleHTML += this.title;                                     
+        titleHTML += '<i class="far fa-star"></i>&nbsp;&nbsp;&nbsp;';
+        titleHTML += this.title;
         $('#'+this.containerID + '_title').html(titleHTML);
         
         //======    Inicialujem index ktorý sa bude inkrementovať pre každé vkladané okno nehnuteľnosti
@@ -120,8 +103,13 @@ export class ListItems {
         //======    Pridanie interného kontajnera (row) pre zobrazenie počtu položiek v jednom riadku
         //          Počet položiek v radku sa nastavuje vo vlastnostiach objektu container (columns) v parametry konštruktora
         //          Vlastnosť columns by nemala obsahovať vyššiu hotnotu ako štyri 
-        $('#'+this.containerID).append('<div class="row row-win" id="' + this.containerID + 'Row_'+lineRow + '"></div>')
-
+        row = domLevels.createElement(  this.containerID,
+                                        'div',
+                                        this.containerID + 'Row_'+lineRow,
+                                        this.tester);
+        //======    Do vytvoreného kontajtera riadku vložím príslušnú triedu Bootstrap
+        $('#' + this.containerID + 'Row_'+lineRow).addClass('row');
+        
         //======    Slučka na vkladanie detských objektov - this.data je výsledok ktorý vrátil controller
         //======    Výsledok je načítaný z databázy cez dátový objekt formátu JSON
         
@@ -131,7 +119,7 @@ export class ListItems {
             //          imgId = unikátne ID obrázku ak bude vložený 
             //          imgSrc = Zdroj obrázku ak bude vložený - názov súboru s cestou
             let childId = this.containerID + "_" + index;   
-            let imgId = this.containerID +'_img_' + index;
+            let imgId = 'image_' + index;
             let imgSrc =  this.pathImage + data.images['image0'+data.gen_firstImage].padStart(2,'0');
 
             //======    Vytvára sa ďalší detský kontajner v rámci slučky - počet podľa počtu záznamov v objekte this.data
@@ -143,33 +131,27 @@ export class ListItems {
             $('#'+childId).addClass('child-win col-sm-' + col_sm + ' '); 
 
             //======    Ak parater zdrojového súboru obrázku obsahuje názov súboru pridá element typu IMG s obrázkom
-           let hrefLink = this.callTemplate + '/' + data.gen_unique;
-
            if(imgSrc != this.pathImage) {
                 let title = '';
-                
-                if(this.tester) {title = 'title="IDdb: ' + data.gen_id + ' :: imgID: ' + imgId + ' :: dbID:' + data.gen_id + ' :: href: ' + hrefLink + ' :: ' + this.containerID + ' :: ' + imgSrc + ' :: ' + lineRow + ' / ' + inLineRow + '"';}
+                let hrefLink = this.template + '/' + data.gen_unique;   // + '/' + 
+                if(this.tester) {title = 'title="href: ' + hrefLink + ' :: ' + this.containerID + ' :: ' + imgSrc + ' :: ' + lineRow + ' / ' + inLineRow + '"';}
                 //Vloženie aktuálneho obrázku k aktuálnej položke
                 $('#'+childId).append('<img src="' + imgSrc + '" ' + title + ' id="' + imgId + '" class="child-image" />');
-                //======            
+                //======        
                 $('#'+imgId).unbind(); 
                 $('#'+imgId).click(function() {
-                    domLevels.linkTemplate(hrefLink, $('#webURL').html());
+                    alert('START');
+                    console.log('BEFORE BEFORE');
+                    domLevels.linkTemplate(hrefLink, $('#WEBPath').html());
+                    console.log('AFTER AFTER');
                     let detail = new Detail();
-                    detail.controller();
+                    detail.execFill();
+                
                 });
+                
+                //$('#'+imgId).addClass('child-image');
             }
-
-            listItemsAdd.fetchDataEstate(   data,
-                                            childId, 
-                                            this.containerType, 
-                                            this.containerID + '_icon_' + index, 
-                                            this.tester,
-                                            this.callTemplate);
-            
-            //=======   Vytvorím pole fromDB podľa parametra this.viewFields (container) s dátami prenesenými zo slučky (data)
-            //let fromDB = system.getArrayFromData(this.viewFields, data);
-            
+                     
             //=======   Po každom vložení detského kontajnera inkrementujem jedinečný index, 
             //          a interný index inLineRow platný v konkrétnom riadku
             ++index; ++inLineRow;
@@ -190,16 +172,12 @@ export class ListItems {
                 ++lineRow;
 
                 //======    Pridá interný kontajner (row) pre zobrazenie počtu ďalších položiek v jednom riadku
-                $('#'+this.containerID).append('<div class="row row-win" id="' + this.containerID + 'Row_'+lineRow + '"></div>')
-                
-                /*
                 row = domLevels.createElement(  this.containerID,
                                                 'div',
                                                 this.containerID + 'Row_'+lineRow, 
                                                 this.tester);
-                */
                 //======    Do vytvoreného kontajtera riadku vložím príslušnú triedu Bootstrap
-                $('#'+this.containerID + 'Row_'+lineRow).addClass('row  row-win ');
+                $('#'+this.containerID + 'Row_'+lineRow).addClass('row');
             }
         }
         

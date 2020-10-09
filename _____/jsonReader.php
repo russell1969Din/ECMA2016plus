@@ -49,17 +49,7 @@ if(strLen(Trim($jsonPlusID))==0 && strLen(Trim($_POST["dbWhere"]))>0) {
     $jsonPlusID = "_ASC_".$asc;
 }
 
-$aDbTables = explode('~', $_POST["dbTables"]);
-$comma = $dbTable = '';
-
-foreach($aDbTables as $table) {
-    $dbTable .= $comma.subStr($table, 0, 3);
-    $comma = '~';
-}
-
-//$jsonFileName = $_POST["pathJSON"].$_POST["dbTables"].$jsonPlusID.".json";
-$jsonFileName = $_POST["pathJSON"].$dbTable.$jsonPlusID.".json";
-
+$jsonFileName = $_POST["pathJSON"].$_POST["dbTables"].$jsonPlusID.".json";
 if(!is_file($jsonFileName)) {
 
     $cdir = scandir("json");

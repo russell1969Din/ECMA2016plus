@@ -1,6 +1,6 @@
 import {ListItems} from "./listItems.js";
 import {BigImage} from "./bigImage.js";
-import {TextOnlyIn} from "./textOnlyIn.js";
+import {InsertTextOnly} from "./textOnlyIn.js";
 
 
 export class FillContainers {
@@ -20,9 +20,9 @@ export class FillContainers {
         bigImage.execRender();
     }
     
-    textOnlyIn() {
-        let textOnlyIn = new TextOnlyIn(this.data, this.container, this.otherParams);
-        textOnlyIn.execRender()
+    insertTextOnly() {
+        let insertTextOnly = new InsertTextOnly(this.data, this.container, this.otherParams);
+        insertTextOnly.execRender()
     }
 }
 

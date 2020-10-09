@@ -5,13 +5,11 @@ import {DomLevels} from "../srcRoot/domLevels.js";
 import {System} from "../srcRoot/system.js";
 
 //======    Odkaz z každej položky zobrazenia kontajnera pomocou tohto objektu sa bude odvolávať na odkaz Detail 
-//import {Home} from "../srcTemp/home/home.src.js";
+import {Home} from "../srcTemp/home/home.src.js";
 
 //======    Odkaz z každej položky zobrazenia kontajnera pomocou tohto objektu sa bude odvolávať na odkaz Detail 
 import {Detail} from "../srcTemp/detail/detail.src.js";
-  
-//======    
-import {ListItemsAdd} from "./listItemsAdd/listItems.add.js";  
+
 
 //https://stackoverflow.com/questions/46071410/how-to-load-css-file-in-ecmascript-6 (render react)
 
@@ -70,7 +68,7 @@ export class ListItems {
         //======    Vytváram konštruktor triedy DomLevels pre prácu s metódami HTML DOM-levels (createElement)
         let domLevels = new DomLevels();
         let system = new System();
-        let listItemsAdd = new ListItemsAdd();
+        let home = new Home();
 
         //======    Vytváram kontajner pre zobrazenie zoznamu nehnuteľností do rodičovského kontajnera
         
@@ -160,12 +158,14 @@ export class ListItems {
                 });
             }
 
-            listItemsAdd.fetchDataEstate(   data,
-                                            childId, 
-                                            this.containerType, 
-                                            this.containerID + '_icon_' + index, 
-                                            this.tester,
-                                            this.callTemplate);
+            //xxxxxxxxxxxxxx
+            home.dataEstate(   data,
+                                this.viewFields,     
+                                childId, 
+                                this.containerType, 
+                                this.containerID + '_icon_' + index, 
+                                this.tester,
+                                this.callTemplate);
             
             //=======   Vytvorím pole fromDB podľa parametra this.viewFields (container) s dátami prenesenými zo slučky (data)
             //let fromDB = system.getArrayFromData(this.viewFields, data);

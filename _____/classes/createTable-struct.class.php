@@ -40,11 +40,6 @@ class struct extends db {
             $aStruct[]  = array(  "table"=>$tableName, "name"=>"gen_unique", "type"=>"varchar(20)"   );
             $aStruct[]  = array(  "table"=>$tableName, "name"=>"gen_title", "type"=>"varchar(500)"   );
             $aStruct[]  = array(  "table"=>$tableName, "name"=>"gen_firstImage", "type"=>"smallint"   );
-            
-            $aStruct[]  = array(  "table"=>$tableName, "name"=>"gen_village", "type"=>"int"   );
-            $aStruct[]  = array(  "table"=>$tableName, "name"=>"gen_district", "type"=>"int"   );
-            $aStruct[]  = array(  "table"=>$tableName, "name"=>"gen_region", "type"=>"int"   );
-            
             $aStruct[]  = array(  "table"=>$tableName, "name"=>"gen_price", "type"=>"varchar(50)"   );
             $aStruct[]  = array(  "table"=>$tableName, "name"=>"gen_category", "type"=>"int"   );
             $aStruct[]  = array(  "table"=>$tableName, "name"=>"gen_type", "type"=>"int"   );
@@ -68,11 +63,6 @@ class struct extends db {
                 "gen_title"=>"REZERVOVANÉ -360° NA PREDAJ pekný 3 izbový byt na dobrej adrese neďaleko Ekonomickej univerzity",
                 "gen_unique"=>randomString(20),
                 "gen_firstImage"=>3,
-                
-                "gen_village"=>251,
-                "gen_district"=>9,
-                "gen_region"=>2,
-                
                 "gen_price"=>"12345 €",
                 "gen_category"=>1,
                 "gen_type"=>1,
@@ -92,12 +82,6 @@ class struct extends db {
                 "gen_title"=>"360° NA PREDAJ 2 izbový byt v centre Stupavy",
                 "gen_unique"=>randomString(20),
                 "gen_firstImage"=>1,
-
-                "gen_village"=>3327,
-                "gen_district"=>34,
-                "gen_region"=>2,
-
-
                 "gen_price"=>"92.500 €",
                 "gen_category"=>1,
                 "gen_type"=>2,
@@ -116,11 +100,6 @@ class struct extends db {
                 "gen_title"=>"360° NA PREDAJ 3 izbový mezonetový byt v 15 ročnom bytovom dome s vlastným parkovaním a klimatizáciou",
                 "gen_unique"=>randomString(20),                
                 "gen_firstImage"=>3,
-                
-                "gen_village"=>258,
-                "gen_district"=>6,
-                "gen_region"=>2,
-
                 "gen_price"=>"149.000 €",
                 "gen_category"=>1,
                 "gen_type"=>3,
@@ -139,11 +118,6 @@ class struct extends db {
                 "gen_title"=>"NA PRENÁJOM 2 i byt v tichej časti Ružinova - bez provízie pre RK",
                 "gen_unique"=>randomString(20),
                 "gen_firstImage"=>2,
-
-                "gen_village"=>255,
-                "gen_district"=>6,
-                "gen_region"=>2,
-
                 "gen_price"=>"500,00 €/mesiac",
                 "gen_category"=>1,
                 "gen_type"=>4,
@@ -162,12 +136,6 @@ class struct extends db {
                 "gen_title"=>"NA PRENÁJOM nádherný, moderný 3 i byt s garážou v úplnom centre - províziu pre RK neplatíte",
                 "gen_unique"=>randomString(20),
                 "gen_firstImage"=>3,
-                
-                "gen_village"=>256,
-                "gen_district"=>5,
-                "gen_region"=>2,
-
-                
                 "gen_price"=>"980,00 €/mesiac",
                 "gen_category"=>1,
                 "gen_type"=>1,

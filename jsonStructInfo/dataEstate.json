@@ -1,0 +1,77 @@
+[
+    {
+        "field":"gen_top",
+        "title":"Top nehuteľnosť",
+        "iconFont":"fas fa-thumbs-up",
+        "iconColor":"#fff",
+        "iconBgColor":"#b3428f"
+    },
+    {
+        "field":"gen_new",
+        "title":"Novinka v ponuke",
+        "iconFont":"far fa-star",
+        "iconColor":"#fff",
+        "iconBgColor":"#be0a0b"
+    },
+    {
+        "field":"gen_exclusiv",
+        "title":"Exkluzívna ponuka",
+        "iconFont":"fas fa-sun",
+        "iconColor":"#fff",
+        "iconBgColor":"#015c5a"
+    },
+    {
+        "field":"gen_reserve",
+        "title":"Rezervované",
+        "iconFont":"fas fa-user-lock",
+        "iconColor":"#fff",
+        "iconBgColor":"#515151"
+    },
+    {
+        "field":"gen_discount",
+        "title":"Zľava na cene",
+        "iconFont":"fas fa-percent",
+        "iconColor":"#fff",
+        "iconBgColor":"#247b22"
+    },
+    {
+        "field":"gen_centre",
+        "title":"Priamo v centre",
+        "iconFont":"",
+        "iconColor":"",
+        "iconBgColor":""
+    },
+    {
+        "field":"gen_title"
+    },
+    {
+        "field":"gen_unique"
+    },
+    {
+        "field":"gen_id"
+    },    
+    {
+        "field":"cat_note",
+        "title":"Kategória:"
+    },    
+    {
+        "field":"typ_note",
+        "title":"Druh:"
+    },
+    {
+        "field":"gen_price",
+        "title":"Cena:"
+    },
+    {
+        "field":"vil_fullname",
+        "title":"Obec:"
+    },
+    {
+        "field":"dis_name",
+        "title":"V okrese:"
+    },
+    {
+        "field":"reg_name",
+        "title":"V rámci kraja:"
+    }                                   
+]

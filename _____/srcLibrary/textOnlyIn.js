@@ -3,11 +3,11 @@ import {DomLevels} from "../srcRoot/domLevels.js";
 
 document.getElementsByTagName("head")[0].insertAdjacentHTML(
     'beforeend',
-    '<link id="original"  rel="stylesheet" href="../css/textOnlyIn.css" />');
+    '<link id="original"  rel="stylesheet" href="../css/insertTextOnly.css" />');
     //  CSS current template  
     //  .content
 
-export class TextOnlyIn {
+export class InsertTextOnly {
 
     constructor(data={}, container={}, otherParams={}) {
         this.data = data;

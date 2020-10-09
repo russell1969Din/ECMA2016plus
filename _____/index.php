@@ -1,22 +1,17 @@
 <?session_start();?>
 
 <script>
-
     if(window.location.href.indexOf('https://')==(-1)) {
         window.location.href = window.location.href.replace('http://', 'https://');
-    }    
-    let aNonGrataParam = ['?fbclid='];
-    for(let nonGrata of aNonGrataParam) {
-        let indexOfNonGrata = window.location.href.indexOf(nonGrata);
-        let substrNonGrata = window.location.href.substr(0, window.location.href.indexOf(nonGrata));
-        if(indexOfNonGrata>(-1)) {
-            window.location.href = substrNonGrata;
-        }
     }
+    
     let aPath = window.location.href.split('/');
     if((window.location.href.match(/\//g) || []).length<4 && aPath[3].length==0) {
         window.location.href += 'home';
     }
+    
+
+    
 </script>
 
 <!DOCTYPE html>
@@ -49,6 +44,11 @@
 ?>    
 </head>
 
+<style>
+    .xtest {
+        background-color:green;
+    }
+</style>
 <body>
 
     <span id="lastURL" style="display:none;"></span>

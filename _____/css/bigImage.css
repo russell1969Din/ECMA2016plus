@@ -1,0 +1,9 @@
+.parent-image {
+    width:100%;
+    height:auto;
+    padding:0px;
+}
+
+.child-image {
+    margin:0px;
+}

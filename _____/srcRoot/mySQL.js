@@ -57,14 +57,7 @@ export class DBMySQL {
                         let asc = getSumAscii(whereDb);
                         jsonPlusID = '_ASC_' + asc;
                     }
-                    let aDbTable = dbTables.split('~');
-                    let tablesJSON = '';
-                    let comma = '';
-                    for(let table of aDbTable) {
-                        tablesJSON += comma + table.substr(0,3);
-                        comma = '~';
-                    }
-                    let fileNameJSON =  '../'+pathJSON + tablesJSON + jsonPlusID + '.json';   
+                    let fileNameJSON =  '../'+pathJSON + dbTables + jsonPlusID + '.json';   
                     let methods = {};
                     let methodsFetch = {};
                     if(this.noCache) { methodsFetch = {cache: "no-cache"};}

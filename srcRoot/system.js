@@ -3,30 +3,31 @@ import {DBMySQL} from "./mySQL.js";
 export class System {
     constructor() {}
     
-    //======    Metóda pre vytvorenie po¾a s klúèmi pre vıber dát z tabu¾ky (cez JSON)
+    //======    MetÃ³da pre vytvorenie poÄ¾a s klÃºÄmi pre vÃ½ber dÃ¡t z tabuÄ¾ky (cez JSON)
     getArrayFromData(fieldsAndTitle, objData) {
 
-        //======    Deklarácia návratového po¾a
+        //======    DeklarÃ¡cia nÃ¡vratovÃ©ho poÄ¾a
         let fromDB;
-        //======    Deklarácia èísla riadku vo vytáranom poli
+        //======    DeklarÃ¡cia ÄÃ­sla riadku vo vytÃ¡ranom poli
         let record   = 1; 
-        //======    Príprava reazca pre javascript evaluation
+        //======    PrÃ­prava reÅ¥azca pre javascript evaluation
         let eCode   = 'fromDB = {';
         for(let dbField of Object.values(fieldsAndTitle) ) {
-            //======    Do k¾úèa key s èíslom riadku vloí názov po¾a tabu¾ky
+            //console.log(dbField.field + ' :: ' + dbField.title);
+            //======    Do kÄ¾ÃºÄa key s ÄÃ­slom riadku vloÅ¾Ã­ nÃ¡zov poÄ¾a tabuÄ¾ky
             eCode       +=  '"key' + record + '": "' + dbField.field + '",';
-            //======    Do k¾úèa s názvom ståpca v tabu¾ke vloí hodnotu tohto po¾a z tabu¾ky
+            //======    Do kÄ¾ÃºÄa s nÃ¡zvom stÄºpca v tabuÄ¾ke vloÅ¾Ã­ hodnotu tohto poÄ¾a z tabuÄ¾ky
             eCode       +=  '"' + dbField.field + '": objData.' + dbField.field + ',';
-            //======    Ak má hotnota v tabu¾ke DB (JSON) titu¾ku naèíta ju do klúèa s názvom ståpca v tabu¾ke + Title
+            //======    Ak mÃ¡ hotnota v tabuÄ¾ke DB (JSON) tituÄ¾ku naÄÃ­ta ju do klÃºÄa s nÃ¡zvom stÄºpca v tabuÄ¾ke + Title
             eCode       +=  '"' + dbField.field + 'Title": "' + dbField.title + '",';
-            //======    Inkrementuje èíslo riadku vo vytáranom poli
+            //======    Inkrementuje ÄÃ­slo riadku vo vytÃ¡ranom poli
             ++record;
         }
-        //======    Uzatvára reazec pre javascript evaluation
+        //======    UzatvÃ¡ra reÅ¥azec pre javascript evaluation
         eCode       +=  '};';
-        //======    Spustí javascript evaluation
+        //======    SpustÃ­ javascript evaluation
         eval(eCode);    
-        //======    Vráti vytvorené pole s key..1, hotnotou a titulkou v rámci záznamov tohto po¾a
+        //======    VrÃ¡ti vytvorenÃ© pole s key..1, hotnotou a titulkou v rÃ¡mci zÃ¡znamov tohto poÄ¾a
         return fromDB;
     }
 }
