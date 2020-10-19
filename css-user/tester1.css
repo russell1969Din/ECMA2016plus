@@ -1,0 +1,18 @@
+.firstGlobal {
+    border: solid 3px orange;
+}
+
+.firstElement {
+    border: solid 3px blue;
+    background-color:yellow;
+    text-align:justify;
+    margin:5px 5px 5px 5px;
+    padding: 5px 10px 5px 10px;
+    border-radius:8px;
+}
+
+.firstElement-3 {
+    color:magenta;
+    font-weight:bold;
+    
+}

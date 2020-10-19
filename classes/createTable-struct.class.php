@@ -5,6 +5,66 @@ class struct extends db {
         
         } 
         
+        public function conditionsCreateStructureTable() {
+            $aStruct    = array(); $tableName = "conditions";
+            $aStruct[]  = array(  "table"=>$tableName, "name"=>"con_id",    "type"=>"int" );
+            $aStruct[]  = array(  "table"=>$tableName, "name"=>"con_note", "type"=>"varchar(30)"   );
+            
+            $this->drop($aStruct, false, __FILE__); $this->create($tableName, $aStruct, __FILE__);
+
+            $aValues    = array();
+            $aValues[]  = array("con_note"=>"Historická stavba");       //id = 1
+            $aValues[]  = array("con_note"=>"Starší panelový dom");     //id = 2
+            $aValues[]  = array("con_note"=>"Starší tehlový dom");      //id = 3
+            $aValues[]  = array("con_note"=>"Novostavba");              //id = 4
+            $aValues[]  = array("con_note"=>"Starší rodinný dom");      //id = 5
+            $this->insert($aStruct, $aValues, true, __FILE__, __LINE__, true);
+        }        
+        
+        public function maklersCreateStructureTable() {
+            $aStruct    = array(); $tableName = "maklers";
+            $aStruct[]  = array(  "table"=>$tableName, "name"=>"mak_id",        "type"=>"int" );
+            $aStruct[]  = array(  "table"=>$tableName, "name"=>"mak_title",    "type"=>"varchar(10)" );
+            $aStruct[]  = array(  "table"=>$tableName, "name"=>"mak_name",    "type"=>"varchar(30)" );
+            $aStruct[]  = array(  "table"=>$tableName, "name"=>"mak_lastName",    "type"=>"varchar(30)" );
+            $aStruct[]  = array(  "table"=>$tableName, "name"=>"mak_email",    "type"=>"varchar(50)" );
+            $aStruct[]  = array(  "table"=>$tableName, "name"=>"mak_mobil",    "type"=>"varchar(50)" );
+
+            $this->drop($aStruct, false, __FILE__); $this->create($tableName, $aStruct, __FILE__);
+
+            $aValues    = array();
+            $aValues[]  = array(    "mak_title"=>"Ing.",
+                                    "mak_name"=>"Zoltán",
+                                    "mak_lastName"=>"Tatay",
+                                    "mak_email"=>"zoltan.tatay@realityspolu.sk",
+                                    "mak_mobil"=>"+421 948 101 818");
+                                    
+            $aValues[]  = array(    "mak_title"=>"",
+                                    "mak_name"=>"Rastislav",
+                                    "mak_lastName"=>"Rehák",
+                                    "mak_email"=>"rastislav.rehak@fermata.sk",
+                                    "mak_mobil"=>"+421 904 478 738");
+            $this->insert($aStruct, $aValues, true, __FILE__, __LINE__, true);
+        }
+
+        public function parkingCreateStructureTable() {
+            $aStruct    = array(); $tableName = "parking";
+            $aStruct[]  = array(  "table"=>$tableName, "name"=>"par_id",    "type"=>"int" );
+            $aStruct[]  = array(  "table"=>$tableName, "name"=>"par_note", "type"=>"varchar(30)"   );
+            
+            $this->drop($aStruct, false, __FILE__); $this->create($tableName, $aStruct, __FILE__);
+
+            $aValues    = array();
+            $aValues[]  = array("par_note"=>"Bez parkovania");       //id = 1
+            $aValues[]  = array("par_note"=>"Verejné parkovanie");     //id = 2
+            $aValues[]  = array("par_note"=>"Garáž k disposícii ");      //id = 3
+            $aValues[]  = array("par_note"=>"Samostatná gatáž");              //id = 4
+            $aValues[]  = array("par_note"=>"Rezervované miesto");      //id = 5
+            $this->insert($aStruct, $aValues, true, __FILE__, __LINE__, true);
+        }        
+
+
+
         public function typesCreateStructureTable() {
             $aStruct    = array(); $tableName = "types";
             $aStruct[]  = array(  "table"=>$tableName, "name"=>"typ_id",    "type"=>"int" );
@@ -37,6 +97,7 @@ class struct extends db {
         public function generalCreateStructureTable() {
             $aStruct    = array(); $tableName = "general";
             $aStruct[]  = array(  "table"=>$tableName, "name"=>"gen_id",    "type"=>"bigint"        );
+            $aStruct[]  = array(  "table"=>$tableName, "name"=>"gen_maklerId", "type"=>"int"   );
             $aStruct[]  = array(  "table"=>$tableName, "name"=>"gen_unique", "type"=>"varchar(20)"   );
             $aStruct[]  = array(  "table"=>$tableName, "name"=>"gen_title", "type"=>"varchar(500)"   );
             $aStruct[]  = array(  "table"=>$tableName, "name"=>"gen_firstImage", "type"=>"smallint"   );
@@ -47,6 +108,15 @@ class struct extends db {
             
             $aStruct[]  = array(  "table"=>$tableName, "name"=>"gen_price", "type"=>"varchar(50)"   );
             $aStruct[]  = array(  "table"=>$tableName, "name"=>"gen_category", "type"=>"int"   );
+            
+            $aStruct[]  = array(  "table"=>$tableName, "name"=>"gen_floor", "type"=>"varchar(10)"   );
+            $aStruct[]  = array(  "table"=>$tableName, "name"=>"gen_condition", "type"=>"int"   );          //catalog
+            $aStruct[]  = array(  "table"=>$tableName, "name"=>"gen_balcony", "type"=>"boolean"   );
+            $aStruct[]  = array(  "table"=>$tableName, "name"=>"gen_lodge", "type"=>"boolean"   );
+            $aStruct[]  = array(  "table"=>$tableName, "name"=>"gen_terrace", "type"=>"boolean"   );
+            $aStruct[]  = array(  "table"=>$tableName, "name"=>"gen_parking", "type"=>"int"   );          //catalog
+            $aStruct[]  = array(  "table"=>$tableName, "name"=>"gen_street", "type"=>"varchar(50)"   );
+            
             $aStruct[]  = array(  "table"=>$tableName, "name"=>"gen_type", "type"=>"int"   );
             $aStruct[]  = array(  "table"=>$tableName, "name"=>"gen_upstair", "type"=>"float"   );
             $aStruct[]  = array(  "table"=>$tableName, "name"=>"gen_note", "type"=>"varchar(5000)"   );
@@ -67,14 +137,20 @@ class struct extends db {
             $aValues[]  = array(
                 "gen_title"=>"REZERVOVANÉ -360° NA PREDAJ pekný 3 izbový byt na dobrej adrese neďaleko Ekonomickej univerzity",
                 "gen_unique"=>randomString(20),
+                "gen_maklerId"=>1,
                 "gen_firstImage"=>3,
-                
                 "gen_village"=>251,
                 "gen_district"=>9,
                 "gen_region"=>2,
-                
                 "gen_price"=>"12345 €",
                 "gen_category"=>1,
+                "gen_floor"=>"73 m2",
+                "gen_condition"=>1,
+                "gen_balcony"=>1,
+                "gen_lodge"=>0,
+                "gen_terrace"=>1,
+                "gen_parking"=>1,
+                "gen_street"=>"Šustekova",
                 "gen_type"=>1,
                 "gen_upstair"=>6,
                 "gen_note"=>"Na predaj pekný 3 izbový byt o celkovej podlahovej ploche 69 m2 + lodžia má výmeru 4 m2. Byt sa nachádza na 1. poschodí z 12-tich. Byt má 2 samostatné izby a prechodnú obávaciu izbu. Vo vstupnej chodbe sa nachádza klimatizácia ako aj dve vstavané skrine. Byt prešiel čiastočnou rekonštrukciou - plávajúca podlaha, dlažba, plastové okná, vchodové bezpečnostné dvere, interierové dvere, stierky. Taktiež bytový dom je po rekonštrukcii - komplet zateplený, nová strecha, vstupná brána a schránky, nové výťahy - osobný a nákladný. Byt je bez tiarch.",
@@ -91,15 +167,20 @@ class struct extends db {
             $aValues[]  = array(
                 "gen_title"=>"360° NA PREDAJ 2 izbový byt v centre Stupavy",
                 "gen_unique"=>randomString(20),
+                "gen_maklerId"=>2,
                 "gen_firstImage"=>1,
-
                 "gen_village"=>3327,
                 "gen_district"=>34,
                 "gen_region"=>2,
-
-
                 "gen_price"=>"92.500 €",
                 "gen_category"=>1,
+                "gen_floor"=>"58 m2",
+                "gen_condition"=>2,
+                "gen_balcony"=>0,
+                "gen_lodge"=>1,
+                "gen_terrace"=>0,
+                "gen_parking"=>2,
+                "gen_street"=>"Bratislavská",
                 "gen_type"=>2,
                 "gen_upstair"=>6,
                 "gen_note"=>"Na predaj 2 izbový byt v slušnom pôvodnom stavena 6 poschodí o celkovej výmere 50 m2. Byt má murované jadro, oddelenú kúpeľňu a toaletu. V byte sa nachádzajú plastové okná a plávajúca podlaha. Možnosť prerobenia podľa vlastných predstáv. K bytu prináleží okrem latkovej pivnice na prízemí aj zatvárací balkónik o výmere cca 3 m2 na medziposchodí, ktorý užíva aj susedný jeden byt. Bytový dom má vlastnú kotoľňu, čím náklady na kúrenie sú podstatne nižšie voči podobným domom a bytom v nich. Zálohový predpis pre 1 osobu je len 92 500 € za mesiac. Bytový dom prešiel rozsiahlou rekonštrukciou a je zateplený. Byt je bez tiarch a je kúpou voľný.",
@@ -115,14 +196,20 @@ class struct extends db {
             $aValues[]  = array(
                 "gen_title"=>"360° NA PREDAJ 3 izbový mezonetový byt v 15 ročnom bytovom dome s vlastným parkovaním a klimatizáciou",
                 "gen_unique"=>randomString(20),                
+                "gen_maklerId"=>1,
                 "gen_firstImage"=>3,
-                
                 "gen_village"=>258,
                 "gen_district"=>6,
                 "gen_region"=>2,
-
                 "gen_price"=>"149.000 €",
                 "gen_category"=>1,
+                "gen_floor"=>"81 m2",
+                "gen_condition"=>3,
+                "gen_balcony"=>1,
+                "gen_lodge"=>1,
+                "gen_terrace"=>1,
+                "gen_parking"=>3,
+                "gen_street"=>"Neznáma",
                 "gen_type"=>3,
                 "gen_upstair"=>3,
                 "gen_note"=>"Na predaj 3 izbový mezonetový byt o výmere 81,5 m2 na 3. podlaží v 15 ročnom bytovom dome. Byt má 3,73 m2 lodžiu a 1,5 m2 murovanú pivnicu. K bytu prináleží 1 parkovacie státie v uzavretom dvore. Byt je rozdelený na spodnú časť, kde je obývacia izba spojená s kuchyňou, kúpeľňa spojená s toaletou, ďalej spálňou a vrchnú časť, ktorá je otvorená a môže slúžiť ako pracovňa, hosťovská izba, sklad, šatník, prípadne aj ako ďaľšia izba. V byte sa nachádza klimatizácia, v kúpeľni je podlahové kúrenie. Bytový dom má vlastný kotol a nemá výťah. Byt je kúpou ihneď voľný.",
@@ -138,14 +225,20 @@ class struct extends db {
             $aValues[]  = array(
                 "gen_title"=>"NA PRENÁJOM 2 i byt v tichej časti Ružinova - bez provízie pre RK",
                 "gen_unique"=>randomString(20),
+                "gen_maklerId"=>2,
                 "gen_firstImage"=>2,
-
                 "gen_village"=>255,
                 "gen_district"=>6,
                 "gen_region"=>2,
-
                 "gen_price"=>"500,00 €/mesiac",
                 "gen_category"=>1,
+                "gen_floor"=>"58 m2",
+                "gen_condition"=>4,
+                "gen_balcony"=>0,
+                "gen_lodge"=>0,
+                "gen_terrace"=>0,
+                "gen_parking"=>4,
+                "gen_street"=>"Neznáma",
                 "gen_type"=>4,
                 "gen_upstair"=>3,
                 "gen_note"=>"Na prenájom veľký 2 izbový byt na 3. podlaží, komplet zariadený - práčka, chladnička, plazmová TV, rádio, vysávač, veľký rolldor. Byt má balkón a je voľný ihneď k nasťahovaniu. Vhdoný pre pár alebo mladú rodinu. Cena nájmu pre 1 osobu vrátane základného TV súboru UPC je 500 EUR + záloha na energie pre 1 osobu je vo výške 90 EUR a cena nájmu vrátane základného TV súboru UPC je 520 EUR pre 2 osoby a záloha na energie je vo výške 100 EUR. Byt je k dispozícii ihneď.",
@@ -161,15 +254,20 @@ class struct extends db {
             $aValues[]  = array(
                 "gen_title"=>"NA PRENÁJOM nádherný, moderný 3 i byt s garážou v úplnom centre - províziu pre RK neplatíte",
                 "gen_unique"=>randomString(20),
+                "gen_maklerId"=>1,
                 "gen_firstImage"=>3,
-                
                 "gen_village"=>256,
                 "gen_district"=>5,
                 "gen_region"=>2,
-
-                
                 "gen_price"=>"980,00 €/mesiac",
                 "gen_category"=>1,
+                "gen_floor"=>"97 m2",
+                "gen_condition"=>5,
+                "gen_balcony"=>1,
+                "gen_lodge"=>1,
+                "gen_terrace"=>1,
+                "gen_parking"=>5,
+                "gen_street"=>"Michalská",
                 "gen_type"=>1,
                 "gen_upstair"=>4,
                 "gen_note"=>"Na prenájom nádherný, zrekonštruovaný a kompletne zariadený 3 izbový byt o výmere 102 m2. Byt ma 3 samostatné, nepriechodné izby, halu, kuchyňu so špajzou a samostatnú kúpeľňu s vaňou a toaletou. V kuchyni sa nachádza elektrická varná platňa, elektrická rúra, umývačka riadov, chladnička ako aj mikrovlná rúra. V každej izbe je klimatizácia a buď francúzsky balkón alebo loggia s obývacej izby. K bytu prináleží aj pivnica. Byt je vhodný pre manažéra alebo rodinu, ktorá preferuje priamo centrum mesta. Byt má nové zariadenie a nik v ňom zatiaľ nebýval. Cena nájmu je 980 EUR + záloha na energie vo výške 150 EUR. V prípade záujmu o prenájom garáže je cena zvýšená o 200 EUR. Byt je voľný ihneď a neplatíte žiadnu sprostredkovateľskú províziu pre RK. Byt je voľný ihneď.",

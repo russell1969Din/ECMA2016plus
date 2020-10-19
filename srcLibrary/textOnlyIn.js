@@ -1,44 +1,93 @@
-//======    Importujeme triedu DomLevels s metódami pre prácu s HTML DOM levels  
+//======    Importuje triedu DomLevels s metódami pre prácu s HTML DOM levels  
 import {DomLevels} from "../srcRoot/domLevels.js";
+//======    Importuje triedu System s metódami systémovej podpory
+import {System} from "../srcRoot/system.js";
 
 document.getElementsByTagName("head")[0].insertAdjacentHTML(
     'beforeend',
-    '<link id="original"  rel="stylesheet" href="../css/textOnlyIn.css" />');
+    '<link id="original"  rel="stylesheet" href="../srcLibrary/textOnlyIn.css" />');
     //  CSS current template  
     //  .content
 
 export class TextOnlyIn {
 
     constructor(data={}, container={}, otherParams={}) {
-        this.data = data;
-        for(let value of Object.values(container) ) {
-            this.usingFields = value.usingFields;
-            this.containerType = value.type;
-            this.containerID = value.id;
-            this.fadeIn = value.fadeIn;
-            this.containerParentID = value.parentId;
-        }        
-        this.otherParams = otherParams;
+    
+        this.doConstruct(data, container, otherParams);
     }
     
-    execRender()    {
-        let domLevels = new DomLevels();
-    
-        for(let other of Object.values(this.otherParams) ) {
-                this.tester = other.tester;
+    doConstruct(data={}, container={}, otherParams={}) {
+        this.data = data;
+        if( Object.keys(container).length > 0) {
+            for(let key of Object.keys(container)) eval('this.' + key + ' = container.' + key + ';');
         }
-        for(let data of Object.values(this.data) ) {                        
-            eval('this.content = data.' + this.usingFields.fieldName +  ';');
-        }        
+
+        if( Object.keys(otherParams).length > 0) {
+            for(let key of Object.keys(otherParams)) eval('this.' + key + ' = otherParams.' + key + ';');
+        }
+    }
+    
+    
+    execRender(data, container, otherParams) {
+                          
+        this.doConstruct(data, container, otherParams);
+        if(typeof this.structJSON !='undefined') {
+            let url = '../../jsonStructInfo/' + this.structJSON + '.json';                        
+            fetch(url)
+                .then(response => response.json())
+                .then(result => this.textInContainer(result, data, container, otherParams));        
+        } else {
+            this.textInContainer({}, data, container, otherParams);
+        }
+    }
+    
+    textInContainer(viewFields, data, container, otherParams) {
+
+        let domLevels = new DomLevels();
         
-        let cnt = domLevels.createElement(  this.containerParentID,
-                                            this.containerType,
-                                            this.containerID, 
-                                            this.tester);
-                                            
+        let system = new System();
+        let fromDB = system.getArrayFromData(viewFields, this.data[0]);
         
-        $('#'+this.containerID).addClass('content');
-        if(this.usingFields.title.length>0)  $('#'+this.containerID).append('<b>' + this.usingFields.title + '</b><br />');
-        $('#'+this.containerID).append(this.content);
+        let cnt = domLevels.createDivElement(   this.parentID,
+                                                this.ID, 
+                                                this.tester);
+
+         //=======   Ak je this.fadeIn pre animáciu nastavený viac ako 0, zavolám animáciu 
+        //          Animácie je možné nastavi aj v príslušnom kaskádovom štýle objektu tejto triedy           
+        if(this.fadeIn > 0) {
+            $('#'+this.ID).css('display','none');
+            $('#'+this.ID).fadeIn(this.fadeIn);
+        }
+
+        $('#'+this.ID).addClass('content');
+        if(fromDB[this.fieldNameIn+'Title'].length>0)  $('#'+this.ID).append('<b>' + fromDB[this.fieldNameIn+'Title'] + '</b><br />');
+        $('#'+this.ID).append(fromDB[this.fieldNameIn]);
+    }
+    
+    textConstantIn(data={}, container={}, otherParams={}) {
+
+        this.doConstruct(data, container, otherParams);
+        
+    
+        let domLevels = new DomLevels();
+
+        let cnt = domLevels.createDivElement(   this.parentID,
+                                                this.ID, 
+                                                this.tester);
+        if(typeof this.classCSS != 'undefined') {
+            if(this.classCSS.trim().length==0) 
+                $('#'+this.ID).addClass('constantElement');
+            else 
+                $('#'+this.ID).addClass(this.classCSS);
+        } else {
+            $('#'+this.ID).addClass('constantElement');
+        }
+        
+        if(this.fadeIn > 0) {
+            $('#'+this.ID).css('display','none');
+            $('#'+this.ID).fadeIn(this.fadeIn);
+        }
+
+        $('#'+this.ID).append(this.content);   //fromDB[this.fieldNameIn]
     }
 }

@@ -1,0 +1,33 @@
+.row-in-table-start {
+    margin: 10px 0 0 0;
+}
+
+.row-in-table {
+    border:solid 0px red;
+
+}
+
+.col-in-table {
+    font-family:verdana;
+    font-size:13px;
+    line-height:30px;
+}
+
+.col-in-table-left {
+    clear:both;
+    float:left;
+    width:50%;
+    margin:0px;
+    padding:0px;
+}
+
+.col-in-table-right {
+    float:left;
+    width:50%;
+    margin:0px;
+    padding:0px;
+}
+
+.border-right {
+    border-right:solid 1px silver;
+}

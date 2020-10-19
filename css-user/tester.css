@@ -1,0 +1,16 @@
+.cssGlobal {
+    border: solid 3px blue;
+}
+
+.cssElement {
+    background-color:yellow;
+    margin:5px 5px 5px 5px;
+    text-align:justify;
+    padding: 5px 10px 5px 10px;
+    border-radius:8px;
+}
+
+.cssElement-2 {
+    color:red;
+    
+}

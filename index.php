@@ -1,19 +1,18 @@
 <?session_start();?>
 
 <script>
-
     if(window.location.href.indexOf('https://')==(-1)) {
         window.location.href = window.location.href.replace('http://', 'https://');
     }    
-    let aNonGrataParam = ['?fbclid='];
+    aNonGrataParam = ['?fbclid='];
     for(let nonGrata of aNonGrataParam) {
-        let indexOfNonGrata = window.location.href.indexOf(nonGrata);
-        let substrNonGrata = window.location.href.substr(0, window.location.href.indexOf(nonGrata));
+        indexOfNonGrata = window.location.href.indexOf(nonGrata);
+        substrNonGrata = window.location.href.substr(0, window.location.href.indexOf(nonGrata));
         if(indexOfNonGrata>(-1)) {
             window.location.href = substrNonGrata;
         }
     }
-    let aPath = window.location.href.split('/');
+    aPath = window.location.href.split('/');
     if((window.location.href.match(/\//g) || []).length<4 && aPath[3].length==0) {
         window.location.href += 'home';
     }
@@ -33,7 +32,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
     <link rel="shortcut icon" type="image/x-icon" href="icon.jpg" />
-    <!--<link rel="stylesheet" href="css/listEstate.css">-->
+
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Property - responzívna šablóna</title>
 <?
@@ -49,17 +48,35 @@
 ?>    
 </head>
 
-<body>
+<style>
+    #workSpace_menu {
+        clear:both;
+        margin-bottom:20px
+    }
+    
+    #workSpace_general {
+        clear:both;
+    }
 
+</style>
+
+<body>
+    
     <span id="lastURL" style="display:none;"></span>
     <span id="currentURL" style="display:none;"></span>
     <span id="webURL" style="display:none;"></span>
     
     <span id="json" style="display:none;"></span>
     <span id="existJSON" style="display:none;"></span>
+    <span id="tableFromJSON" style="display:none;">tableFromJSON</span>
     
-    <div id="workSpace_general"></div>
+    
+    <div id="workSpace_css" ></div>
+    <div id="workSpace_menu" ></div>
+    <div id="workSpace_general" ></div>
     <script id="main"  src="/srcRoot/main.js" type="module"></script>
+    
+    
      
 </body>
 
@@ -96,17 +113,18 @@ function getAllPath() {
     let allPath = '';
     for(let fragment of aPath) {
         if(index==4) {after=true;}  
-        console.log(after);
         if(after) allPath += '/' + fragment;
         ++index;
     }
     return allPath;
 }
 
+/*
 const capitalize = (s) => {
     if (typeof s !== 'string') return '';
     return s.charAt(0).toUpperCase() + s.slice(1)
 }
+*/
 
 function getSumAscii(string) {
     let count = 0;
@@ -116,6 +134,11 @@ function getSumAscii(string) {
     return count;
 }
 
+function cl(param) {console.log(param);}
+
+function undefinedIs(param) {if(typeof param != 'undefined') return param; else return '';}
+
+//console.clear();
 
 </script>
 

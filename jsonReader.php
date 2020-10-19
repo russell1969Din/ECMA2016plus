@@ -8,6 +8,8 @@ $_SESSION["SYSTEM_ROOT"]    = getSystemRoot();
 $_SESSION["PROJECT_INFO"]   = $_SESSION["SYSTEM_ROOT"]."/setsParam.php";
 if(is_file($_SESSION["PROJECT_INFO"])) {include($_SESSION["PROJECT_INFO"]);}
 
+
+//if(strLen(Trim($_POST["dbTables"]))==0) die();
 $aTables = explode("~", $_POST["dbTables"]);
     
 $db  = _constructClass("db");   
@@ -32,8 +34,9 @@ if(strLen(Trim($_POST["dbWhere"]))== 0) {
     $where = $_POST["dbWhere"];        
 }
 
+                    
 if(strLen(Trim($where))==0) $where = '1';
-if(strLen(Trim($_POST["dbJoin"]))>0) $where =  $where.' && '.$_POST["dbJoin"];
+if(strLen(Trim($_POST["dbJoin"]))>0) $where .=  ' && '.$_POST["dbJoin"];
 
 $aData = $db->get("", $aTables, null, $where, true, __FILE__, __LINE__, false);
 
@@ -43,8 +46,9 @@ $jsonPlusID = "";
 if($_POST["dbID"]>0 && strLen(Trim($_POST["dbWhere"]))==0 ) {$jsonPlusID = "_".$_POST["dbID"];}
 if(strLen(Trim($jsonPlusID))==0 && strLen(Trim($_POST["dbWhere"]))>0) {
     $asc = 0;
-    for($i=0;$i<strLen(Trim($where));++$i) {
-        $asc += ord(substr($where, $i, 1));
+    $forAscWhere = str_replace(' ', '', $_POST["dbWhere"]);
+    for($i=0;$i<strLen(Trim($forAscWhere));++$i) {
+        $asc += ord(substr($forAscWhere, $i, 1));
     }
     $jsonPlusID = "_ASC_".$asc;
 }

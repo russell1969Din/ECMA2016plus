@@ -1,0 +1,18 @@
+.workbanch {
+    margin: 10px 0 10px 0;
+}
+
+.workbanch-button {
+    text-align:center;
+    background-color:#5d1d82;
+    font-family:verdana;
+    color: #fff;
+    font-size:12px;
+    line-height:20px;
+    padding: 0px 15px 0 15px;
+    font-weight:bold;
+    height:26px;
+    border-radius:5px;
+    border:outset 3px #5d1d82;
+    cursor:pointer;
+}

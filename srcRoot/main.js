@@ -1,32 +1,22 @@
-import {DBMySQL} from "./mySQL.js";
+
+import {MenuControl} from "./menuControl.js";
+
 import {DomLevels} from "./domLevels.js";
-import {Home} from "../srcTemp/home/home.src.js";
-import {Detail} from "../srcTemp/detail/detail.src.js";
-
-
-//to do
-
-                        
-
-
+import {BasicMenu} from "../srcMenu/basicMenu/basicMenu.src.js";
 
 $.getJSON("https://api.ipify.org?format=json", function(data) { 
     $("#json").html("/json/" + data.ip + ".json");
 });
 
-let domLevels = new DomLevels();
-domLevels.loadTemplate(getFragmentPath(1), 'workSpace_general');
 
-switch(getFragmentPath(1)) {
-    case 'home':    {
-        let home = new Home();
-        home.controller();        
-        break;
-    }
-    case 'detail':    {
-        let detail = new Detail();
-        detail.controller();        
-        break;
-    }
-}
-       
+let domLevels = new DomLevels();
+
+
+let basicMenu = new BasicMenu();
+basicMenu.execRender();
+
+domLevels.loadTemplate(getFragmentPath(1), 'workSpace_general');     
+
+let menuControl = new MenuControl();
+menuControl.call(getFragmentPath(1), getFragmentPath(2));
+

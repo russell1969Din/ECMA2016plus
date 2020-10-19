@@ -8,18 +8,27 @@ export class DomLevels {
     //======    type = typ vytváraného elementu
     //======    id = unikátne ID noovytváraného elementu
     //======    ak tester = true do titulky elementu vloží identidikáčne informácie (napr. ID)
-    createElement(parent, type='div', id, tester = false) {
-        var cnt = document.createElement(type); 
-        document.getElementById(parent).appendChild(cnt); 
-        cnt.setAttribute("id", id); 
-        if(tester) cnt.setAttribute("title", id);
-        
-        // Vrati objekt typu element pre prípadne ďalšie použitie
-        return cnt;
+    createDivElement(parent, id, tester = false) {
+        var cnt = document.createElement('div'); 
+        if(document.getElementById(parent)) {
+            document.getElementById(parent).appendChild(cnt); 
+            cnt.setAttribute("id", id); 
+            if(tester) cnt.setAttribute("title", id);
+            
+            // Vrati objekt typu element pre prípadne ďalšie použitie
+            return cnt;
+        } else {
+            console.log('Kontajner == ' + parent + ' == treba vložiť do šablóny !');
+            return null;
+        }
     }
     
-    loadTemplate(fileToLoad='', workSpace='') {
+    loadTemplate(fileToLoad='', workSpace='', classObject=null, methodName=null) {
+        
+        if(methodName == null) {methodName = 'renderTemplate'}
+        
         if(fileToLoad.trim().length==0 || workSpace.trim().length==0) return null;
+        $('#'+workSpace).html('');
         $.ajax({
             url:'../srcTemp/' + fileToLoad + '/' + fileToLoad + '.tmp.php',
             method:'POST',
@@ -27,19 +36,25 @@ export class DomLevels {
                 param:       0
             },
             success:function(data)  {
-                $('#'+workSpace).html(data);
+                //console.log(data);
+                $('#'+workSpace).html(data);                    
+                if(classObject!=null && methodName!=null) {
+                    eval('classObject.' + methodName + '();');
+                }
             }                                                       
         });
     }
     
-    newHistoryPushState(newHref='', top=true) {
+  
+    
+    newHistoryPushState(newHref='', top=false) {
         //======    Ak niektorý z parametrov nie je riadne definovaný, metóda sa predčasne ukončí
         if(newHref.trim().length==0) return null;
         //======    Appka nastaví nové URL
         var stateObj = {foo:'bar'};
         history.pushState(stateObj, "page 2", "/" + newHref);
         //======    Nastaví zobrazenie šablón na úplný vrch hore ak parameter top sa rovná true
-        if(top) $(window).scrollTop(0); $('body').scrollTop(0);
+        //if(top) $(window).scrollTop(0); $('body').scrollTop(0);
     
     }
     

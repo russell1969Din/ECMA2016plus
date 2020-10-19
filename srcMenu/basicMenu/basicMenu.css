@@ -1,0 +1,110 @@
+/*MAC*/
+.row:before, .row:after{
+    display: inline-block !important;
+}
+
+.topnav {
+    overflow: hidden;
+}
+
+.topnav .icon {
+    display: none;
+}
+
+/*menu-item CSS*/
+.topnav a {
+    float: left;
+    display: block;
+    text-align: center;
+    padding: 8px 10px;
+    text-decoration: none;
+    font-family:verdana;
+    font-size: 20px;
+    font-weight:bold;
+}
+
+@media screen and (max-width: 600px) {
+    .topnav a:not(:first-child) {display: none;}
+    .topnav a.icon {
+        float: right;
+        display: block;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .topnav.responsive {position: relative;}
+    .topnav.responsive .icon {
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+    .topnav.responsive a {
+        float: none;
+        display: block;
+        text-align: left;
+    }
+}
+
+#mobilIcon {
+    color:#8395bb;
+    margin-top:4px;
+}
+
+.menu-general {                                      
+    background-color:#5d1d82;
+}
+
+.containerLogo {
+    padding:0px;
+}
+
+.logoIcon {
+    
+    
+}
+                                
+.menu-icons {
+    border-bottom:dotted 1px yellow;
+    height:60px;
+}
+
+.socialSection {
+    text-align:right;
+}
+
+.icon-style {
+    height:40px;
+    width:auto;
+    border-radius:4px;
+    cursor:pointer;
+}
+
+.fab {
+    cursor:pointer;  
+    margin: 10 5 10 5;
+    height:30px;
+    width:30px;
+    background-color:transparent !no-important;
+    text-align:center;
+    padding-top:5px;
+}
+
+.fa-facebook-square {color:#2d88ff;}
+.fa-instagram {color: #c73191;}
+.fa-twitter {color:#1da1f2;}
+.fa-linkedin-in {color:#0077b5;}
+
+.menu-item {
+    margin-right:30px;
+    cursor:pointer;
+    color:silver;
+}
+
+.topnav a:hover {
+    text-decoration: none;
+    color:yellow;
+}
+
+.menu-item-current {
+    color:yellow;
+}

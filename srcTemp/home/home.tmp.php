@@ -16,6 +16,11 @@
 </style>
 
 
+<div id="elementAndJSON" class=""></div>
+<div id="stdElement" class=""></div>
+<div id="stdElement1" class=""></div>
+<div id="stdElement2" class=""></div>
+
 <div id="workSpace01" class=""></div>
 <div id="workSpace02" class=""></div>
 <div id="workSpace03" class=""></div>

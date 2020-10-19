@@ -1,0 +1,38 @@
+[
+    {
+        "parent":"menuLogo",
+        "col_sm":12,
+        "title":"Návrat na domovskú stránku",
+        "image":"imgStatic/logo.jpg",
+        "id":"logo",    
+        "url":"home"
+    },
+    {
+        "title":"facebook",
+        "fontawesome":"fab fa-facebook-square",
+        "id":"fb",    
+        "href":"https://www.facebook.com",
+        "target":"_NEW"
+    },
+    {
+        "title":"Instagram",
+        "fontawesome":"fab fa-instagram",
+        "id":"inst",    
+        "href":"https://www.instagram.com",
+        "target":"_NEW"
+    },
+    {
+        "title":"Twitter",
+        "fontawesome":"fab fa-twitter",
+        "id":"twitter",    
+        "href":"https://www.twitter.com",
+        "target":"_NEW"
+    },
+    {
+        "title":"LinkedIn",
+        "fontawesome":"fa-linkedin-in",
+        "id":"linkedIn",    
+        "href":"https://www.linkedin.com",
+        "target":"_NEW"
+    }
+]

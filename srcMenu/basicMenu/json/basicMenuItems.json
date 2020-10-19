@@ -1,0 +1,32 @@
+[
+    {
+        "subIndex":1,
+        "textItem":"DOMOV",
+        "url":"home"
+    },
+    {
+        "subIndex":2,
+        "textItem":"PONUKA",
+        "url":"ponuka"
+    },
+    {
+        "subIndex":3,
+        "textItem":"O SPOLOČNOSTI",
+        "url":"o-spolocnosti"
+    },
+    {
+        "subIndex":4,
+        "textItem":"AKTUALITY",
+        "url":"aktuality"
+    },
+    {
+        "subIndex":5,
+        "textItem":"VLOŽTE DOPYT",
+        "url":"vlozte-dopyt"
+    },
+    {
+        "subIndex":6,
+        "textItem":"KONTAKT",
+        "url":"kontakt"
+    }
+]

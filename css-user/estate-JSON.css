@@ -1,0 +1,63 @@
+.jsonGlobal {
+    margin-top:20px;
+}
+
+.jsonElement {
+    
+    text-align:justify;
+    margin: 5px 0 0 0;
+    padding: 10px;
+}
+
+.jsonElement-2, .jsonElement-7 {
+    border-bottom:dotted 2px silver;
+    font-size:18px;
+    font-weight:normal;
+    margin: 30px 0px 0 0px;
+}
+
+.jsonElement-3, .jsonElement-5{
+    margin: 10px 0px 0px 0px;
+    padding: 15px 0px 1px 10px;
+}
+
+.jsonElement-4, .jsonElement-6 {
+    border:solid 0px green;
+    margin: 0px 0px 0px 0px;
+    padding: 5px 0px 2px 10px;
+
+}
+
+.element-table {}
+
+.in-line-table {}
+
+
+.left-col-table {
+    clear:both;
+    float:left;
+    width:50%;
+    margin:0px;
+    padding:0px;
+}
+
+.right-col-table {
+    float:left;
+    width:50%;
+    margin:0px;
+    padding:0px;
+    font-weight:bold;
+    
+}
+
+.living-of-video {
+    margin-top:10px;
+    background-color:#f3f3f3;
+    border-radius:8px;
+}
+
+.living-of-frame {
+    width:600px;
+    height:400px;
+    margin-top:10px;
+}

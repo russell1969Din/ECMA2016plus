@@ -1,0 +1,28 @@
+.parent-image {
+    width:100%;
+    height:auto;
+    padding:0px;
+}
+
+.child-image {
+    margin:0px;
+}
+
+.linkReturn-parent {
+    height:30px;
+    margin-top:3px;
+}
+
+.linkReturn-child {
+    width:100px;
+    height:28px;
+    text-align:center;
+    margin: 0px auto 0px auto; 
+    font-family:verdana;
+    font-size:16px;
+    line-height:28px;
+    border-radius:5px;
+    background-color:#5f2084;
+    color:#fff;
+    cursor:pointer;
+}

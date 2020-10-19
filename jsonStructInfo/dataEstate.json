@@ -68,10 +68,10 @@
     },
     {
         "field":"dis_name",
-        "title":"V okrese:"
+        "title":"Okres:"
     },
     {
         "field":"reg_name",
-        "title":"V rámci kraja:"
+        "title":"Kraj:"
     }                                   
 ]

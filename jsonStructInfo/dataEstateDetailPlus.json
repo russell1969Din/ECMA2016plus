@@ -1,0 +1,66 @@
+[
+
+    {
+        "field":"gen_price",
+        "title":"Cena:"
+    },
+    {
+        "field":"gen_floor",
+        "title":"Podlahová plocha:"
+    },
+    {
+        "field":"reg_name",
+        "title":"Kraj:"
+    },
+    {
+        "field":"con_note",
+        "title":"Stav objektu:"
+    },
+    {
+        "field":"dis_name",
+        "title":"Okres:"
+    },
+    {
+        "field":"gen_upstair",
+        "title":"Na poschodí:"
+    },
+    {
+        "field":"vil_fullname",
+        "title":"Obec:"
+    },
+    {
+        "field":"gen_balcony",
+        "logical":1,
+        "title":"Balkón:"
+    },
+    {
+        "field":"gen_street",
+        "title":"Ulica:"
+    },
+    {
+        "field":"gen_lodge",
+        "logical":1,
+        "title":"Loggia:"
+    },
+    {
+        "field":"cat_note",
+        "title":"Kategória:"
+    },
+    {
+        "field":"gen_terrace",
+        "logical":1,
+        "title":"Terasa:"
+    },
+    {
+        "field":"typ_note",
+        "title":"Druh:"
+    },
+    {
+        "field":"par_note",
+        "title":"Druh parkovania:"
+    },
+    {
+        "field":"gen_id",
+        "title":"ID inzerátu:"
+    }
+]

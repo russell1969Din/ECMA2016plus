@@ -1,0 +1,28 @@
+.secondGlobal {
+    border: solid 3px orange;
+    margin-top:20px;
+    border-radius:8px;  
+}
+
+.secondElement {
+    border: solid 3px blue;
+    background-color:yellow;
+    text-align:justify;
+    margin:5px 5px 5px 5px;
+    padding: 5px 10px 5px 10px;
+    border-radius:8px;
+}
+
+.secondElement-1 {
+    background-color:pink;
+    margin:5px 5px 5px 5px;
+    text-align:justify;
+    padding: 5px 10px 5px 10px;
+    border-radius:8px;
+}
+
+.secondElement-2 {
+    color:red;
+    font-weight:bold;
+    
+}
